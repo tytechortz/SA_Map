@@ -5,10 +5,11 @@ import pandas as pd
 
 def get_svi_data():
     df = pd.read_csv('Colorado_SVI_2020.csv')
-    # geo_data = gpd.read_file('2020_CT/ArapahoeCT.shp')
+    geo_data = gpd.read_file('2020_CT/ArapahoeCT.shp')
 
-    # df['FIPS'] = df['FIPS'].astype(str)
-    # df = geo_data.merge(df, on="FIPS")
+    df['FIPS'] = df['FIPS'].astype(str)
+    df = df.set_index("FIPS")
+    df = geo_data.merge(df, on="FIPS")
 
     return df
 

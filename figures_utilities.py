@@ -9,17 +9,39 @@ Arap_outline = gpd.read_file('us-county-boundaries')
 
 
 def get_Choropleth(df, geo_data, fig=None):
-    
+    print(df.index)
+    print(geo_data["FIPS"])
     if fig is None:
         fig = go.Figure()
 
     fig.add_trace(
         go.Choroplethmapbox(
-            geojson = eval(geo_data['geometry'].to_json()),
-            locations = df.index,
-            z = df['E_TOTPOP']
+            geojson=eval(geo_data['geometry'].to_json()),
+            locations=df.index,
+            z=df['E_TOTPOP']
         )
     )
+
+    return fig
+
+def get_map(df):
+
+    fig = go.Figure()
+    fig.add_trace(
+        go.Scattermapbox(
+            mode="markers",
+            lon = [-73.605], 
+            lat = [45.51],
+        )
+    )
+    
+    # fig = go.Figure(go.Scattermapbox(
+    #         mode="markers",
+    #         lon = [-73.605], 
+    #         lat = [45.51],
+    #     ))
+
+    
 
     return fig
 
@@ -32,6 +54,8 @@ def get_figure(df, geo_data):
     #     )
     # )
     fig = get_Choropleth(df, geo_data)
+    things = get_map(df)
+    fig.add_trace(things.data[0])
     # layer = [
     #         {
     #             "source": Arap_outline["geometry"].__geo_interface__,
