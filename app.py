@@ -7,6 +7,11 @@ from figures_utilities import (
     get_figure
 )
 
+from utils import (
+    get_svi_data,
+    get_geo_data
+)
+
 
 
 app = Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.DARKLY])
@@ -19,6 +24,9 @@ header = html.Div("Arapahoe Situational Awareness", className="h2 p-2 text-white
 
 template = {"layout": {"paper_bgcolor": bgcolor, "plot_bgcolor": bgcolor}}
 
+
+df = get_svi_data()
+geo_data = get_geo_data()
 
 def blank_fig(height):
     """
@@ -63,7 +71,7 @@ app.layout = dbc.Container([
 )
 def update_Choropleth(category):
     
-    fig = get_figure()
+    fig = get_figure(df, geo_data)
 
 
 
