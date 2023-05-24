@@ -12,10 +12,29 @@ bgcolor = "#f3f3f1"  # mapbox light map land color
 
 header = html.Div("Arapahoe Situational Awareness", className="h2 p-2 text-white bg-primary text-center")
 
+
 template = {"layout": {"paper_bgcolor": bgcolor, "plot_bgcolor": bgcolor}}
+
+
+def blank_fig(height):
+    """
+    Build blank figure with the requested height
+    """
+    return {
+        "data": [],
+        "layout": {
+            "height": height,
+            "template": template,
+            "xaxis": {"visible": False},
+            "yaxis": {"visible": False},
+        },
+    }
+
+
 
 app.layout = dbc.Container([
     header,
+    dbc.Row(dcc.Graph(id='ca-map', figure=blank_fig(500))),
 ])
 
 
