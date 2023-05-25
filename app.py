@@ -28,6 +28,8 @@ template = {"layout": {"paper_bgcolor": bgcolor, "plot_bgcolor": bgcolor}}
 df = get_svi_data()
 geo_data = get_geo_data()
 
+tracts = geo_data["FIPS"].values
+print(tracts)
 def blank_fig(height):
     """
     Build blank figure with the requested height
@@ -59,24 +61,44 @@ app.layout = dbc.Container([
                 inline=True
             ),
         ], width=2),
+        dbc.Col([
+            dcc.Dropdown(
+                id="tracts",
+                options=[
+                    {"label": i, "value": i}
+                    for i in tracts
+                ],
+                multi=True,
+                style={"color": "black"},
+                # value="SVI",
+            ),
+            dcc.Dropdown(id='graph-type')
+        ], width=4)
     ])
 ])
+
+
 
 
 @app.callback(
     Output("sa-map", "figure"),
     Input("map-category", "value"),
     # Input("graph-type", "value"),
-    # Input("tracts", "value")
+    Input("tracts", "value")
 )
-def update_Choropleth(category):
-    
+def update_Choropleth(category, tracts):
 
-  
 
-    geo_tracts_highlights = geo_data[geo_data['FIPS'].isin(['8005080600'])]
     
-    print(geo_tracts_highlights)
+    geo_tracts_highlights = ()
+    print(tracts)
+    # sel_tracts = ['8005007600']
+    
+    print(geo_data['FIPS'].dtype)
+    if tracts != None:
+        geo_tracts_highlights = geo_data[geo_data['FIPS'].isin(tracts)]
+    
+        print(geo_tracts_highlights)
 
     
     fig = get_figure(df, geo_data, geo_tracts_highlights)
