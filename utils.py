@@ -17,6 +17,6 @@ def get_svi_data():
 
 def get_geo_data():
     geo_data = gpd.read_file('2020_CT/ArapahoeCT.shp')
-    
+    # print(geo_data)
 
     return geo_data
