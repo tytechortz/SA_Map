@@ -29,7 +29,7 @@ df = get_svi_data()
 geo_data = get_geo_data()
 
 tracts = geo_data["FIPS"].values
-print(tracts)
+
 def blank_fig(height):
     """
     Build blank figure with the requested height
@@ -77,6 +77,45 @@ app.layout = dbc.Container([
     ])
 ])
 
+@app.callback(
+        Output("tracts", "value"),
+        Input("sa-map", "clickData"),
+        Input("sa-map", "selectedData"),
+        Input("tracts", "value"),
+        State("sa-map", "clickData")
+)
+
+def update_tract_dropdown(clickData, selectedData, tracts, clickData_state):
+
+    if ctx.triggered[0]["value"] is None:
+        return tracts
+    
+    # print(clickData)
+    print(tracts)
+    tract = ()
+
+    changed_id = [p["prop_id"] for p in ctx.triggered][0]
+
+    if clickData is not None and "customdata" in clickData["points"][0]:
+        tract = clickData["points"][0]["customdata"]
+        print(tract)
+        if tract in tracts:
+            tracts.remove(tract)
+        elif len(tracts) < 5:
+            tracts.append(tract)
+
+
+
+    return tracts
+    
+    
+    
+    # changed_id = [p["prop_id"] for p in ctx.triggered][0]
+
+    # if clickData is not None and ""
+
+    # return tracts
+
 
 
 
@@ -88,17 +127,15 @@ app.layout = dbc.Container([
 )
 def update_Choropleth(category, tracts):
 
-
+    # changed_id = ctx.triggered[0][['prop_id'].split('.')[0]]
+    # print(changed_id)
     
     geo_tracts_highlights = ()
-    print(tracts)
-    # sel_tracts = ['8005007600']
     
-    print(geo_data['FIPS'].dtype)
     if tracts != None:
         geo_tracts_highlights = geo_data[geo_data['FIPS'].isin(tracts)]
     
-        print(geo_tracts_highlights)
+        # print(geo_tracts_highlights)
 
     
     fig = get_figure(df, geo_data, geo_tracts_highlights)

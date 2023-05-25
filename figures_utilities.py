@@ -19,7 +19,8 @@ def get_Choropleth(df, geo_data, marker_opacity, fig=None):
             geojson=eval(geo_data['geometry'].to_json()),
             locations=df.index,
             z=df['E_TOTPOP'],
-            marker_opacity = marker_opacity
+            marker_opacity = marker_opacity,
+            customdata=df["FIPS"]
         )
     )
 
