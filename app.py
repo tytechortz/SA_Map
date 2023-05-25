@@ -28,7 +28,7 @@ template = {"layout": {"paper_bgcolor": bgcolor, "plot_bgcolor": bgcolor}}
 df = get_svi_data()
 geo_data = get_geo_data()
 
-tracts = geo_data["FIPS"].values
+all_tracts = geo_data["FIPS"].values
 
 def blank_fig(height):
     """
@@ -66,11 +66,11 @@ app.layout = dbc.Container([
                 id="tracts",
                 options=[
                     {"label": i, "value": i}
-                    for i in tracts
+                    for i in all_tracts
                 ],
                 multi=True,
                 style={"color": "black"},
-                # value="SVI",
+                value=(),
             ),
             dcc.Dropdown(id='graph-type')
         ], width=4)
@@ -89,8 +89,8 @@ def update_tract_dropdown(clickData, selectedData, tracts, clickData_state):
 
     if ctx.triggered[0]["value"] is None:
         return tracts
-   
-
+    print(clickData)
+    print(tracts)
     changed_id = [p["prop_id"] for p in ctx.triggered][0]
 
     if clickData is not None and "customdata" in clickData["points"][0]:
