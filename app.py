@@ -95,25 +95,14 @@ def update_tract_dropdown(clickData, selectedData, tracts, clickData_state):
 
     if clickData is not None and "customdata" in clickData["points"][0]:
         tract = clickData["points"][0]["customdata"]
-        print(tract)
+      
         if tract in tracts:
             tracts.remove(tract)
         elif len(tracts) < 10:
             tracts.append(tract)
 
-    # print(sel_tracts)
-
-    # return sel_tracts
-    
-    
-    
-    # changed_id = [p["prop_id"] for p in ctx.triggered][0]
-
-    # if clickData is not None and ""
-
+  
     return tracts
-
-
 
 
 @app.callback(
