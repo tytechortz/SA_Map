@@ -28,23 +28,7 @@ def get_Choropleth(df, geo_data, marker_opacity, fig=None):
 def get_map(df):
 
     fig = go.Figure()
-    # fig.add_trace(
-    #     go.Scattermapbox(
-    #         mode="lines",
-    #         lat = df
-    #     )
-    # )
-    # fig.update_layout(
-    #     mapbox={
-
-    #     }
-    # )
-    
-    # fig = go.Figure(go.Scattermapbox(
-    #         mode="lines",
-    #         lons = lons,
-    #         lats = lats
-    #     ))
+  
 
     
 
@@ -53,21 +37,9 @@ def get_map(df):
 
 def get_figure(df, geo_data, geo_tracts_highlights):
 
-    # fig = go.Figure(
-    #     go.Scattermapbox(
-    
-    #     )
-    # )
+ 
     fig = get_Choropleth(df, geo_data, marker_opacity=0.4)
-    # things = get_map(df)
-    # fig.add_trace(things.data[0])
-    # layer = [
-    #         {
-    #             "source": geo_data["geometry"].__geo_interface__,
-    #             "type": "line",
-    #             "color": "red"
-    #         }
-    #     ]
+   
     
     fig.update_layout(mapbox_style="carto-positron", 
                             mapbox_zoom=10.4,

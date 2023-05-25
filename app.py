@@ -70,21 +70,12 @@ app.layout = dbc.Container([
     # Input("tracts", "value")
 )
 def update_Choropleth(category):
-    tracts = {"FIPS":'8005080600'}
+    
 
-    # geo_tracts_highlights = dict()
-    # print('sup')
-    # print(geo_data.keys())
+  
 
     geo_tracts_highlights = geo_data[geo_data['FIPS'].isin(['8005080600'])]
-    # for k in geo_data.keys():
-    #     if k != "geometry":
-    #         geo_tracts_highlights[k] = geo_data[k]
-    #     else:
-    #         geo_tracts_highlights[k] = [
-    #             geo_data[tract] 
-    #             for tract in tracts
-    #         ]
+    
     print(geo_tracts_highlights)
 
     
