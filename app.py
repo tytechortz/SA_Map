@@ -81,7 +81,7 @@ app.layout = dbc.Container([
         Output("tracts", "value"),
         Input("sa-map", "clickData"),
         Input("sa-map", "selectedData"),
-        Input("tracts", "value"),
+        State("tracts", "value"),
         State("sa-map", "clickData")
 )
 
@@ -89,10 +89,7 @@ def update_tract_dropdown(clickData, selectedData, tracts, clickData_state):
 
     if ctx.triggered[0]["value"] is None:
         return tracts
-    
-    # print(clickData)
-    print(tracts)
-    tract = ()
+   
 
     changed_id = [p["prop_id"] for p in ctx.triggered][0]
 
@@ -101,12 +98,12 @@ def update_tract_dropdown(clickData, selectedData, tracts, clickData_state):
         print(tract)
         if tract in tracts:
             tracts.remove(tract)
-        elif len(tracts) < 5:
+        elif len(tracts) < 10:
             tracts.append(tract)
 
+    # print(sel_tracts)
 
-
-    return tracts
+    # return sel_tracts
     
     
     
@@ -114,7 +111,7 @@ def update_tract_dropdown(clickData, selectedData, tracts, clickData_state):
 
     # if clickData is not None and ""
 
-    # return tracts
+    return tracts
 
 
 
