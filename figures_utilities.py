@@ -8,7 +8,7 @@ Arap_outline = gpd.read_file('us-county-boundaries')
 
 
 
-def get_Choropleth(df, geo_data, fig=None):
+def get_Choropleth(df, geo_data, marker_opacity, fig=None):
     print(df.index)
     print(geo_data["FIPS"])
     if fig is None:
@@ -18,7 +18,8 @@ def get_Choropleth(df, geo_data, fig=None):
         go.Choroplethmapbox(
             geojson=eval(geo_data['geometry'].to_json()),
             locations=df.index,
-            z=df['E_TOTPOP']
+            z=df['E_TOTPOP'],
+            marker_opacity = marker_opacity
         )
     )
 
@@ -27,13 +28,17 @@ def get_Choropleth(df, geo_data, fig=None):
 def get_map(df):
 
     fig = go.Figure()
-    fig.add_trace(
-        go.Scattermapbox(
-            mode="markers",
-            lon = [-73.605], 
-            lat = [45.51],
-        )
-    )
+    # fig.add_trace(
+    #     go.Scattermapbox(
+    #         mode="lines",
+    #         lat = df
+    #     )
+    # )
+    # fig.update_layout(
+    #     mapbox={
+
+    #     }
+    # )
     
     # fig = go.Figure(go.Scattermapbox(
     #         mode="markers",
@@ -53,14 +58,14 @@ def get_figure(df, geo_data):
     
     #     )
     # )
-    fig = get_Choropleth(df, geo_data)
-    things = get_map(df)
-    fig.add_trace(things.data[0])
+    fig = get_Choropleth(df, geo_data, marker_opacity=0.4)
+    # things = get_map(df)
+    # fig.add_trace(things.data[0])
     # layer = [
     #         {
-    #             "source": Arap_outline["geometry"].__geo_interface__,
+    #             "source": geo_data["geometry"].__geo_interface__,
     #             "type": "line",
-    #             "color": "black"
+    #             "color": "red"
     #         }
     #     ]
     
